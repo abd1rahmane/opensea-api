@@ -15,7 +15,7 @@ To view the list of available APIs and their specifications, run the server and 
 -  `GET /v1/collections` : get collection's data.
    -  Example :
       `v1/collections/cryptopunks?page=2`
--   NB : pagiantion starts from `0`.
+-   NB : pagination starts from `0`.
 <br>
 
 <h2>🧐 Features</h2>
