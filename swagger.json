@@ -1,0 +1,45 @@
+{
+   "swagger": "2.0",
+   "info": {
+      "version": "1.0.0",
+      "title": "Opensea API",
+      "description": " Opensea API",
+      "license": {
+         "name": "MIT",
+         "url": "https://opensource.org/licenses/MIT"
+      }
+   },
+   "basePath": "/",
+   "schemes": ["http"],
+   "consumes": ["application/json"],
+   "produces": ["application/json"],
+   "paths": {
+      "/v1/collections/{collectionId}": {
+         "get": {
+            "tags": ["collections"],
+            "summary": "Get all data of a collectionId",
+            "parameters": [
+               {
+                  "name": "collectionId",
+                  "in": "path",
+                  "description": "collectionId that we want to get",
+                  "type": "string",
+                  "schema": {}
+               },
+               {
+                  "name": "page",
+                  "in": "query",
+                  "description": "page",
+                  "type": "integer",
+                  "schema": {}
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "OK"
+               }
+            }
+         }
+      }
+   }
+}
