@@ -16,10 +16,14 @@ async function getCollectionData(collection, options) {
    try {
       const cycleTLS = await initCycleTLS();
       const pageNumber = options?.page || 0;
-      const cursor = Buffer.from(
-         "arrayconnection:" + (pageNumber * 20 + 9).toString()
-      ).toString("base64");
-
+      var cursor;
+      if (parseInt(pageNumber) === 0) {
+         cursor = null;
+      } else {
+         cursor = Buffer.from(
+            "arrayconnection:" + (pageNumber * 20 - 1).toString()
+         ).toString("base64");
+      }
       // Send request
       const response = await cycleTLS(
          "https://opensea.io/__api/graphql/",
@@ -30,7 +34,7 @@ async function getCollectionData(collection, options) {
                variables: {
                   categories: null,
                   chains: null,
-                  collection: collection, //"abcabracadabra",
+                  // collection: collection, //"abcabracadabra",
                   collectionQuery: null,
                   collectionSortBy: null,
                   collections: [collection],
@@ -42,8 +46,8 @@ async function getCollectionData(collection, options) {
                   priceFilter: null,
                   query: "",
                   resultModel: "ASSETS",
-                  showContextMenu: false,
-                  sortAscending: false,
+                  showContextMenu: true,
+                  sortAscending: true,
                   sortBy: "CREATED_DATE",
                   stringTraits: null,
                   toggles: null,
@@ -52,7 +56,7 @@ async function getCollectionData(collection, options) {
                   isPrivate: null,
                   isAutoHidden: null,
                   safelistRequestStatuses: null,
-                  prioritizeBuyNow: true,
+                  prioritizeBuyNow: null,
                   rarityFilter: null,
                },
             }),
@@ -99,7 +103,7 @@ async function getAllData(collection, options) {
          totalCount = parseInt(data?.query?.search?.totalCount);
 
          totalPages = parseInt(
-            parseFloat(data?.query?.search?.totalCount) / 20 
+            parseFloat(data?.query?.search?.totalCount) / 20
          );
       }
 
